@@ -5,7 +5,7 @@ on:
       - master
 
 jobs:
-  deploy-app:
+  create-release:
     runs-on: ubuntu-latest
     steps:
       - name: check out the code to build server
@@ -21,7 +21,7 @@ jobs:
           tag_prefix: "v"
           major_pattern: "BREAKING CHANGE:"
           minor_pattern: "feat:"
-          version_format: "v${major}.${minor}.${patch}-prerelease${increment}"
+          version_format: "release-${major}.${minor}.${patch}-prerelease${increment}"
 
       - name: Create Release
         id: create_release
