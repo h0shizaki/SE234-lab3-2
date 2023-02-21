@@ -20,7 +20,7 @@ jobs:
           branch: master
           tag_prefix: "release-"
           major_pattern: "BREAKING CHANGE:"
-          minor_pattern: "feat:"
+          minor_pattern: "feat"
           version_format: "release-${major}.${minor}.${patch}-prerelease${increment}"
 
       - name: Create Release
