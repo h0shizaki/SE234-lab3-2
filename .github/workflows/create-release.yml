@@ -1,0 +1,39 @@
+name: create release on master branch
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out the code to build server
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Semantic versioning
+        id: versioning
+        uses: paulhatch/semantic-version@v5.0.2
+        with:   
+          branch: dev
+          tag_prefix: "v"
+          major_pattern: "BREAKING CHANGE:"
+          minor_pattern: "feat:"
+          version_format: "v${major}.${minor}.${patch}-prerelease${increment}"
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1.1.4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.versioning.outputs.version }}
+          release_name: ${{ steps.versioning.outputs.version }}
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          draft: false
+          prerelease: false
