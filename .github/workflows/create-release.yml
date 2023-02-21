@@ -17,8 +17,8 @@ jobs:
         id: versioning
         uses: paulhatch/semantic-version@v5.0.2
         with:   
-          branch: dev
-          tag_prefix: "v"
+          branch: master
+          tag_prefix: "release-"
           major_pattern: "BREAKING CHANGE:"
           minor_pattern: "feat:"
           version_format: "release-${major}.${minor}.${patch}-prerelease${increment}"
@@ -31,9 +31,4 @@ jobs:
         with:
           tag_name: ${{ steps.versioning.outputs.version }}
           release_name: ${{ steps.versioning.outputs.version }}
-          body: |
-            Changes in this Release
-            - First Change
-            - Second Change
-          draft: false
-          prerelease: false
+    
