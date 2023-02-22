@@ -23,12 +23,20 @@ jobs:
           minor_pattern: "feat"
           version_format: "release-${major}.${minor}.${patch}-prerelease${increment}"
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1.1.4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - 
+        name: Create Tag 
+        uses: ncipollo/release-action@v1
         with:
-          tag_name: ${{ steps.versioning.outputs.version }}
-          release_name: ${{ steps.versioning.outputs.version }}
+          tag: ${{ steps.versioning.outputs.version }}
+          name: ${{ steps.versioning.outputs.version }}
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      # - name: Create Release
+      #   id: create_release
+      #   uses: actions/create-release@v1.1.4
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ steps.versioning.outputs.version }}
+      #     release_name: ${{ steps.versioning.outputs.version }}
     
